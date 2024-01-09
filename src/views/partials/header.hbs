@@ -1,0 +1,11 @@
+<header class="root">
+  <nav class="root"><!--
+    {{#each mainPaths}}
+    {{#if (equals ../title this)}}
+  --><a class="active-page"><span>{{this}}</span></a><!--
+    {{else}}
+  --><a href="/{{this}}"><span>{{this}}</span></a><!--
+    {{/if}}
+    {{/each}}
+    --></nav>
+</header>
