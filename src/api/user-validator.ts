@@ -1,4 +1,6 @@
-import Joi from 'joi';
+import { default as Joi, CustomValidator } from 'joi';
+
+import User from '../schemas/User';
 
 export const userNameRegex = /^[a-zA-Z0-9-_() ]+$/;
 
@@ -18,6 +20,10 @@ export const schema = Joi.object({
   email: Joi.string()
   .email()
 });
+
+export const uniqueName: CustomValidator = (value, helpers) => {
+
+}
 
 export default function validator(user: object) {
   return schema.validate(user, { abortEarly: false });
