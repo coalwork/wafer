@@ -2,8 +2,11 @@ import 'dotenv/config';
 import express from 'express';
 import morgan from 'morgan';
 import compression from 'compression';
+import bodyParser from 'body-parser';
 
 import './mongoose';
+
+import { default as registerRouter } from './api/register';
 
 import { default as sessionRouter } from './routes/session';
 import { default as redirectRouter } from './routes/redirect';
@@ -15,6 +18,10 @@ const app = express();
 app.use(morgan('dev'));
 app.use(compression());
 app.use(express.static('src/public'));
+app.use('/api', bodyParser.urlencoded({ extended: true }));
+
+// api
+app.use('/api', registerRouter);
 
 // routes
 app.use(sessionRouter);
