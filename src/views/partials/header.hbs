@@ -7,5 +7,21 @@
   --><a href="/{{this}}"><span>{{this}}</span></a><!--
     {{/if}}
     {{/each}}
-    --></nav>
+  --><!--{{#if authenticated}}
+    {{#each protectedPaths}}
+    {{#if (equals ../title this)}}
+  --><a class="active-page"><span>{{this}}</span></a><!--
+    {{else}}
+  --><a href="/{{this}}"><span>{{this}}</span></a><!--
+    {{/if}}
+    {{/each}}
+    {{/if}}-->
+    <div id="right">
+      {{#if authenticated}}
+      <button id="log-out">log out</button>
+      {{else}}
+      {{> login}}
+      {{/if}}
+    </div>
+  </nav>
 </header>

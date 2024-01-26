@@ -1,0 +1,31 @@
+{{> header}}
+<main class="root">
+  <form id="register-form" class="auth-form">
+    <h1>new user</h1>
+    <input
+        name="username"
+        type="text"
+        placeholder="username*"
+        required
+        minlength="3"
+        maxlength="20"
+        pattern="^[a-zA-Z0-9\-_\(\) ]+$"
+        autocomplete="username"
+        title="usernames must consist of only letters, numbers, underscores (_), dashes (-), parentheses, or spaces"
+        size="30">
+    <input
+        name="password"
+        type="password"
+        placeholder="password*"
+        required
+        minlength="6"
+        maxlength="30"
+        pattern="^[!-~]+$"
+        autocomplete="current-password"
+        title="passwords may only contain letters, numbers, and punctuation (ASCII codes 33-126)"
+        size="30">
+    <input name="email" type="email" placeholder="email">
+    <input type="submit" value="register">
+    <!-- <small id="register-tips"></small> -->
+  </form>
+</main>

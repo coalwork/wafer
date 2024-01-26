@@ -1,0 +1,20 @@
+{{> header}}
+<main class="root">
+  {{#with requestedUser}}
+  <h1>{{name}}</h1>
+  <table>
+    <tr>
+      <th>id</th>
+      <td>{{_id}}</td>
+    </tr>
+    <tr>
+      <th>created</th>
+      <td>{{created}}</td>
+    </tr>
+  </table>
+  {{/with}}
+  {{#if (equals requestedUser.name user.name) }}
+  <button id="delete-user">delete</button>
+  {{/if}}
+</main>
+<script>this.$user = "{{user.name}}"</script>

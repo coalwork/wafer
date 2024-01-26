@@ -1,0 +1,33 @@
+main.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding-bottom: 4rem;
+}
+
+#register-form {
+  position: relative;
+  width: min-content;
+}
+
+#register-form h1 {
+  text-align: center;
+}
+
+#register-form input[type=submit] {
+  align-self: center;
+}
+
+#register-form :focus:invalid {
+  border-color: var(--error);
+}
+
+#register-tips {
+  position: absolute;
+  text-align: center;
+  color: var(--error);
+  bottom: 0;
+  left: 0;
+  transform: translateY(100%);
+}

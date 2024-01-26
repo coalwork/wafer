@@ -1,0 +1,15 @@
+main.root {
+  display: flex;
+  justify-content: center;
+}
+
+#user-table {
+  border: 1px solid var(--primary);
+  border-collapse: collapse;
+  height: min-content;
+}
+
+#user-table :is(td, th) {
+  border: 1px solid var(--primary);
+  padding: 0.25rem 1rem;
+}

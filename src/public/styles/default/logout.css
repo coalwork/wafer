@@ -1,0 +1,32 @@
+#log-out {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.25rem 0;
+
+  transition: color var(--transition-time);
+}
+
+#log-out:hover {
+  cursor: pointer;
+}
+
+#log-out:hover:active {
+  color: var(--primary);
+}
+
+#log-out::after {
+  content: '';
+  border-bottom: 1px solid var(--text);
+  width: 0;
+
+  transition: all var(--transition-time);
+}
+
+#log-out:hover::after {
+  width: 100%;
+}
+
+#log-out:active::after {
+  border-color: var(--primary);
+}

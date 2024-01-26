@@ -1,32 +1,34 @@
 import Handlebars from 'handlebars';
-import {
-  default as express,
-  RequestHandler,
-  Locals
-} from 'express';
+import express from 'express';
 import fs from 'node:fs';
 
-import { compileFile } from '../utils';
+import { ignore, protect } from '../special-routes';
 
 const viewDirectory = 'src/views';
 const viewNames = fs.readdirSync(viewDirectory)
 .filter(name => name.endsWith('.hbs') && !name.startsWith('.'));
 const styleDirectory = fs.readdirSync('src/public/styles');
 const scriptDirectory = fs.readdirSync('src/public/scripts');
+const defaultScriptDirectory = fs.readdirSync('src/public/scripts/default').filter(name => name.endsWith('.js'));
 const mainLayout = compileFile(`${viewDirectory}/layouts/main.hbs`);
 
-// important: update as site gets made
-const mainPaths = viewNames.map(name => name.slice(0, -4));
+const mainPaths = viewNames
+.map(name => name.slice(0, -4))
+.filter(name => !ignore.includes(name));
 
 const router = express.Router();
 
-Handlebars.registerPartial(
-  'header',
-  fs.readFileSync(
-    `${viewDirectory}/partials/header.hbs`,
-    { encoding: 'utf8' }
-  )
-);
+const partialNames = fs.readdirSync(`${viewDirectory}/partials`);
+
+for (let name of partialNames) {
+  Handlebars.registerPartial(
+    name.slice(0, -4),
+    fs.readFileSync(
+      `${viewDirectory}/partials/${name}`,
+      { encoding: 'utf8' }
+    )
+  );
+}
 
 Handlebars.registerHelper('equals', (a, b) => a === b);
 
@@ -36,6 +38,11 @@ interface RenderOptions {
   useDefaultStyles: boolean,
   styles: string[],
   scripts: string[]
+}
+
+export function compileFile(path: string) {
+  const file = fs.readFileSync(path, { encoding: 'utf8' });
+  return Handlebars.compile(file);
 }
 
 export function toRenderOptions($: any): RenderOptions {
@@ -62,12 +69,16 @@ export function render(viewName: string, locals: RenderOptions): string {
     scripts: localScripts
   } = locals;
 
-  if (useDefaultStyles) styles.push('default');
+  if (useDefaultStyles) styles.push('default/default');
   styles.push(...localStyles);
   if (styleDirectory.includes(`${viewName}.css`)) styles.push(viewName);
 
   scripts.push(...localScripts);
   if (scriptDirectory.includes(`${viewName}.js`)) scripts.push(viewName);
+
+  for (let script of defaultScriptDirectory) {
+    scripts.push('default/' + script.slice(0, -3));
+  }
 
   return mainLayout({
     title: viewName,
@@ -86,7 +97,11 @@ export function render(viewName: string, locals: RenderOptions): string {
 router.use((req, res, next) => {
   const viewName = req.path.replace(/^\/(.+?)\/?$/, '$1');
 
-  if (!viewNames.includes(`${viewName}.hbs`)) return next();
+  if (!viewNames.includes(`${viewName}.hbs`) || res.locals.error.hasOwnProperty('code')) {
+    return next();
+  }
+
+  if (req.isAuthenticated()) res.locals.templateContext.protectedPaths = protect;
 
   res.send(render(viewName, toRenderOptions(res.locals)));
 });

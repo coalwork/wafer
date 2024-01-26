@@ -1,0 +1,58 @@
+@import url('reset.css');
+@import url('colors.css');
+@import url('header.css');
+@import url('auth-form.css');
+@import url('logout.css');
+
+:root {
+  --transition-time: 150ms;
+  --transition-time-short: calc(var(--transition-time) / 2);
+
+  font-family: 'Source Code Pro', monospace;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+button {
+  background: inherit;
+  color: inherit;
+  border: none;
+  font-size: inherit;
+}
+
+html, body {
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+body > .root {
+  padding: 1rem;
+}
+
+main.root {
+  flex: 1;
+}
+
+input:is(
+[type=text],
+[type=password],
+[type=email],
+[type=submit]) {
+  background: inherit;
+  border-width: 1px;
+  border-style: solid;
+  color: var(--text);
+  padding: 0.25rem 0.5rem;
+}
+
+.active-page {
+  color: var(--primary);
+}
+
+:not(nav.root) > a {
+  color: var(--link);
+}

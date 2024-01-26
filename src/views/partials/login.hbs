@@ -1,0 +1,27 @@
+<button id="login">
+  <span>log in</span>
+  <form id="login-form" class="auth-form" style="display: none">
+    <p>it's good to see you again</p>
+    <input
+        name="username"
+        type="text"
+        placeholder="username"
+        required
+        minlength="3"
+        maxlength="20"
+        pattern="^[a-zA-Z0-9\-_\(\) ]+$"
+        autocomplete="username">
+    <input
+        name="password"
+        type="password"
+        placeholder="password"
+        required
+        minlength="6"
+        maxlength="30"
+        pattern="^[!-~]+$"
+        autocomplete="current-password">
+    <input type="submit" value="log in">
+    <!-- <small id="login-tip"></small> -->
+    <small>new user? <a href="/register">register here</a></small>
+  </form>
+</button>

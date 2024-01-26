@@ -1,0 +1,21 @@
+{{> header}}
+<main class="root">
+  <table id="user-table">
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>id</th>
+        <th>created</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+      <tr>
+        <td><a href="/users/{{this.name}}">{{this.name}}</a></td>
+        <td>{{this._id}}</td>
+        <td>{{this.created}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</main>

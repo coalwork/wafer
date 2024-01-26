@@ -1,0 +1,21 @@
+th {
+  text-align: right;
+}
+
+th, td {
+  padding: 0.25rem 1rem;
+}
+
+#delete-user {
+  padding: 0.25rem 1rem;
+  border: 1px solid var(--error);
+  color: var(--error);
+
+  transition: all var(--transition-time);
+}
+
+#delete-user:hover {
+  background: var(--error);
+  color: var(--background);
+  cursor: pointer;
+}

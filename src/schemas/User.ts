@@ -11,6 +11,7 @@ const userSchema = new Schema({
     required: true,
     type: String
   },
+  email: String,
   created: {
     type: Date,
     default: Date.now
