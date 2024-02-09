@@ -42,8 +42,9 @@ router.get('/users/:name', async (req, res, next) => {
   res.locals.styles.push('user');
   res.locals.scripts.push('user');
   res.locals.templateContext.requestedUser = user;
+  res.locals.viewName = '.user';
 
-  res.send(render('.user', toRenderOptions(res.locals)));
+  next();
 });
 
 export default router;

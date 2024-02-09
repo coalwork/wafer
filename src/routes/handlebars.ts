@@ -95,9 +95,12 @@ export function render(viewName: string, locals: RenderOptions): string {
 }
 
 router.use((req, res, next) => {
-  const viewName = req.path.replace(/^\/(.+?)\/?$/, '$1');
+  const viewName = res.locals.viewName ?? req.path.replace(/^\/(.+?)\/?$/, '$1');
 
-  if (!viewNames.includes(`${viewName}.hbs`) || res.locals.error.hasOwnProperty('code')) {
+  if (
+    (!viewNames.includes(`${viewName}.hbs`)
+    || res.locals.error.hasOwnProperty('code'))
+    && !res.locals.hasOwnProperty('viewName')) {
     return next();
   }
 

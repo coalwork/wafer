@@ -7,7 +7,7 @@ import session from 'express-session';
 const router = express.Router();
 const { connection } = mongoose;
 
-router.use(session({
+export const sessionMiddleware = session({
   cookie: {
     maxAge: 604800000
   },
@@ -18,6 +18,8 @@ router.use(session({
     dbName: process.env.MONGODBNAME,
     clientPromise: connection.asPromise().then(() => connection.getClient())
   })
-}));
+});
+
+router.use(sessionMiddleware);
 
 export default router;
